@@ -1,5 +1,8 @@
 import cors from 'cors';
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
+import { categoryRoutes } from './app/modules/categories/categories.route';
+import { courseRoutes } from './app/modules/courses/courses.route';
+import { reviewRoutes } from './app/modules/reviews/reviews.route';
 
 const app: Application = express();
 
@@ -8,13 +11,8 @@ app.use(express.json());
 app.use(cors());
 
 // application routes
-// app.use('/api/v1', router);
-
-const test = async (req: Request, res: Response) => {
-  const a = 10;
-  res.send(a);
-};
-
-app.get('/', test);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/courses', courseRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 export default app;
