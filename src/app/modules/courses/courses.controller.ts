@@ -38,26 +38,7 @@ const getCourse = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
-const getReviewByCourse = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const courseId = req.params.courseId;
-    const result = await courseServices.getReviewByCourse(courseId);
 
-    //send response
-    res.status(200).json({
-      sucsess: true,
-      statusCode: 200,
-      messaage: 'Reviews retrieved successfully',
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
 const getReviewAndCourseById = async (
   req: Request,
   res: Response,
@@ -78,10 +59,32 @@ const getReviewAndCourseById = async (
     next(error);
   }
 };
+const updateCourse = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const courseId = req.params.courseId;
+    const payload = req.body;
+    const result = await courseServices.updateCourse(courseId, payload);
+
+    //send response
+    res.status(200).json({
+      sucsess: true,
+      statusCode: 200,
+      messaage: 'Course updated successfully',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const courseController = {
   createCourse,
   getCourse,
-  getReviewByCourse,
+  updateCourse,
+
   getReviewAndCourseById,
 };

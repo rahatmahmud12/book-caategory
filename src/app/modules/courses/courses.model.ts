@@ -13,6 +13,16 @@ const courseDetailsSchema = new Schema({
     required: true,
   },
 });
+const tagSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  isDeleted: {
+    type: Boolean,
+    required: true,
+  },
+});
 
 const courseSchema = new Schema<TCourse>({
   title: {
@@ -33,8 +43,8 @@ const courseSchema = new Schema<TCourse>({
     type: Number,
     required: true,
   },
-  skills: {
-    type: [String],
+  tags: {
+    type: [tagSchema],
     required: true,
   },
   startDate: {

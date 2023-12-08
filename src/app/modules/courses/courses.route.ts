@@ -3,11 +3,9 @@ import { courseController } from './courses.controller';
 
 const router = express.Router();
 
-router.get('/:courseId/reviews', courseController.getReviewByCourse);
-router.get(
-  '/:courseId/course-reviews',
-  courseController.getReviewAndCourseById,
-);
+router.get('/:courseId/reviews', courseController.getReviewAndCourseById);
+router.put('/:courseId', courseController.updateCourse);
+
 router.post('/', courseController.createCourse);
 
 router.get('/', courseController.getCourse);
