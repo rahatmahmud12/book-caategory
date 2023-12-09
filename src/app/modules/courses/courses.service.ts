@@ -49,8 +49,6 @@ const getCourse = async (payload: Record<string, unknown>) => {
   if (durationInWeeks) filter.durationInWeeks = durationInWeeks;
   if (level) filter['details.level'] = level;
 
-  console.log(filter);
-
   // const pageNumber = parseInt(page) || 1;
   // const pageLimit = parseInt(limit) || 10;
 
@@ -92,6 +90,9 @@ const updateCourse = async (courseId: string, payload: Partial<TCourse>) => {
     new: true,
     runValidators: true,
   });
+  if (!result) {
+    throw new Error('Course not found');
+  }
   return result;
 };
 
