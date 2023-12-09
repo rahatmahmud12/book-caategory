@@ -25,7 +25,8 @@ const createCourse = async (
 
 const getCourse = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await courseServices.getCourse();
+    const payload = req.query;
+    const result = await courseServices.getCourse(payload);
 
     //send response
     res.status(200).json({

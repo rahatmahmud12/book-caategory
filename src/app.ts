@@ -3,6 +3,7 @@ import express, { Application } from 'express';
 import { categoryRoutes } from './app/modules/categories/categories.route';
 import { courseRoutes } from './app/modules/courses/courses.route';
 import { reviewRoutes } from './app/modules/reviews/reviews.route';
+import globalErrorHandler from './app/middleWare/globalErrorHandler';
 
 const app: Application = express();
 
@@ -14,5 +15,7 @@ app.use(cors());
 app.use('/api/categories', categoryRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/reviews', reviewRoutes);
+
+app.use(globalErrorHandler);
 
 export default app;
