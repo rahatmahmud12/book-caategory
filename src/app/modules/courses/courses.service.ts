@@ -21,6 +21,43 @@ const createCourse = async (course: TCourse) => {
   const result = await Course.create(course);
   return result;
 };
+
+const getTheBestCourse = async () => {
+  const bestCourse = await Course.aggregate([
+    {
+      $lookup: {
+        from: 'reviews',
+        localField: '_id',
+        foreignField: 'courseId',
+        as: 'reviews',
+      },
+    },
+    {
+      $addFields: {
+        averageRating: { $avg: '$reviews.rating' },
+        reviewCount: { $size: '$reviews' },
+      },
+    },
+    {
+      $sort: {
+        averageRating: -1,
+      },
+    },
+    {
+      $limit: 1,
+    },
+  ]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  const { averageRating, reviewCount, reviews, ...courseData } = bestCourse[0];
+  const formattedResponse = {
+    course: courseData,
+    averageRating,
+    reviewCount,
+  };
+
+  return formattedResponse;
+};
+
 const getCourse = async (payload: Record<string, unknown>) => {
   const {
     page = 1,
@@ -107,5 +144,6 @@ export const courseServices = {
   createCourse,
   getCourse,
   updateCourse,
+  getTheBestCourse,
   getCourseAndReviewById,
 };

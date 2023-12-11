@@ -2,7 +2,7 @@ import express from 'express';
 import { courseController } from './courses.controller';
 
 const router = express.Router();
-
+router.get('/best', courseController.getBestCourse);
 router.get('/:courseId/reviews', courseController.getReviewAndCourseById);
 router.put('/:courseId', courseController.updateCourse);
 

@@ -60,6 +60,25 @@ const getReviewAndCourseById = async (
     next(error);
   }
 };
+const getBestCourse = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const result = await courseServices.getTheBestCourse();
+
+    //send response
+    res.status(200).json({
+      sucsess: true,
+      statusCode: 200,
+      messaage: 'Best course retrieved successfully',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 const updateCourse = async (
   req: Request,
   res: Response,
@@ -86,6 +105,6 @@ export const courseController = {
   createCourse,
   getCourse,
   updateCourse,
-
+  getBestCourse,
   getReviewAndCourseById,
 };
