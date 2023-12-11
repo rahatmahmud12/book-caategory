@@ -13,8 +13,9 @@ app.use(cors());
 
 // application routes
 app.use('/api/categories', categoryRoutes);
-app.use('/api/courses', courseRoutes);
+
 app.use('/api/reviews', reviewRoutes);
+app.use('/api', courseRoutes);
 
 app.use(globalErrorHandler);
 
